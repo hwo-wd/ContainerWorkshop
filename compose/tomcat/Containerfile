@@ -1,0 +1,12 @@
+FROM docker.io/library/eclipse-temurin:24-jre-noble
+RUN apt-get update && apt-get install -y logrotate curl
+ENV CATALINA_HOME /usr/local/tomcat
+RUN mkdir -p "$CATALINA_HOME"
+WORKDIR $CATALINA_HOME
+
+
+RUN curl -O https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.40/bin/apache-tomcat-10.1.40.tar.gz \
+    && tar xzf apache-tomcat-10.1.40.tar.gz --strip-components=1 -C $CATALINA_HOME
+EXPOSE 8080
+
+CMD ["bin/catalina.sh", "run"]

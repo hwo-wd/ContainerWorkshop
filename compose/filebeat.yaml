@@ -1,0 +1,9 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /usr/local/tomcat/logs/*.log
+
+output.console:
+  enabled: true
+  pretty: true

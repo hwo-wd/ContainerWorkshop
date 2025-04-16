@@ -1,0 +1,18 @@
+services:
+  tomcat:
+    build: ./tomcat
+    container_name: my_tomcat
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/usr/local/tomcat/logs
+    restart: unless-stopped
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:9.0.0
+    container_name: filebeat
+    volumes:
+      - ./logs:/usr/local/tomcat/logs:ro
+      - ./filebeat.yaml:/usr/share/filebeat/filebeat.yaml:ro
+    depends_on:
+      - tomcat
